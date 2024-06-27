@@ -3,16 +3,16 @@
 import React, { useState } from "react";
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 
-type Props = {} 
+type Todo = {
+    id: number;
+    text: string;
+}
+
+type Props = {}
 
 export default function ToDo({}: Props) {
     const [autoAnimate] = useAutoAnimate();
-    const [todos, setTodos] = useState([
-        { id: 1, text: "Task One" },
-        { id: 2, text: "Task Two" },
-        { id: 3, text: "Task Three" }
-    ]);
-
+    const [todos, setTodos] = useState<Todo[]>([]);
     const [inputText, setInputText] = useState("");
     const [editMode, setEditMode] = useState<number | null>(null);
     const [editedText, setEditedText] = useState("");
@@ -47,14 +47,14 @@ export default function ToDo({}: Props) {
     }
 
     function saveTodo() {
-        const updatedTodos = todos.map((todo)=>todo.id === editMode ? {...todo, text: editedText} : todo);
+        const updatedTodos = todos.map((todo) => todo.id === editMode ? { ...todo, text: editedText } : todo);
         setTodos(updatedTodos); 
         setEditMode(null);
     }
 
     return (
         <div className="">
-            <h2 className="text-2xl font-bold mb4">ToDo App</h2>
+            <h2 className="text-2xl font-bold mb-4">ToDo App</h2>
             <div className="flex mb-4">
                 <input 
                     type="text"
